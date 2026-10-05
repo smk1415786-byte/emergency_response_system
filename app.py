@@ -3,31 +3,17 @@ import firebase_admin
 from firebase_admin import credentials, firestore
 import os
 
-app = Flask(__name__)
+# Firebase service-account configuration
+import json
 
+firebase_key = os.environ.get(r"C:\Users\ADMIN\Downloads\raksha1-7b718-firebase-adminsdk-fbsvc-e3821087ef.json")
 
-# ==========================================
-# FIREBASE CONFIGURATION
-# ==========================================
+if not firebase_key:
+    raise RuntimeError("FIREBASE_KEY environment variable is not set")
 
-# Firebase service-account JSON file
-firebase_key = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)),
-    r"C:\Users\ADMIN\Downloads\raksha1-7b718-firebase-adminsdk-fbsvc-e3821087ef.json"
-)
-
-# Check Firebase key
-if not os.path.exists(firebase_key):
-    raise RuntimeError(
-        f"Firebase key file not found: {firebase_key}"
-    )
-
-
-# Initialize Firebase only once
 if not firebase_admin._apps:
-    cred = credentials.Certificate(firebase_key)
+    cred = credentials.Certificate(json.loads(firebase_key))
     firebase_admin.initialize_app(cred)
-
 
 # Firestore database
 db = firestore.client()
