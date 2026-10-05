@@ -11,7 +11,7 @@ from firebase_admin import credentials, firestore
 app = Flask(__name__)
 
 # 🔥 LOAD FIREBASE KEY FROM RENDER ENV
-cred = credentials.Certificate(json.loads(os.environ["FIREBASE_KEY"]))
+cred = credentials.Certificate(r"C:\Users\ADMIN\Downloads\raksha1-7b718-firebase-adminsdk-fbsvc-15c34ef6ec.json")
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 
