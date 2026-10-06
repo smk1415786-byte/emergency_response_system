@@ -7,6 +7,7 @@ import os
 import json
 
 firebase_key = os.environ.get(r"C:\Users\ADMIN\Downloads\raksha1-7b718-firebase-adminsdk-fbsvc-e3821087ef.json")
+print("FIREBASE_KEY PRESENT:", bool(firebase_key))
 
 if not firebase_key:
     raise RuntimeError("FIREBASE_KEY environment variable is not set")
