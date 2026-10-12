@@ -108,7 +108,6 @@
             border-color: var(--focus);
             box-shadow: 0 0 0 4px rgba(26, 143, 154, 0.18);
         }
-        /* The memorable part: vehicle number styled like a number plate */
         
         input.plate {
             padding: 14px;
@@ -191,8 +190,8 @@
             <p>Add your details to get a QR code for your vehicle. If someone needs to reach you, they can scan it.</p>
         </header>
 
-        <!-- action connects to your Flask backend -->
-        <form action="/register_vehicle" method="POST">
+        <!-- Form action points correctly to the root route -->
+        <form action="/" method="POST">
             <div class="field">
                 <label for="vehicle">Vehicle number</label>
                 <input class="plate" id="vehicle" name="vehicle" placeholder="MH 12 AB 1234" autocapitalize="characters" autocomplete="off" required>
