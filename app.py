@@ -38,8 +38,8 @@ def home():
                 
             vehicle_id = inserted_data[0].get("id")
 
-            # 4. Generate the QR Code URL pointing to your Render deployment
-            url = f"https://emergency-response-system-jl3r.onrender.com/v/{vehicle_id}"
+            # 4. Generate the QR Code URL dynamically based on the current host (Render or Local)
+            url = f"{request.host_url}v/{vehicle_id}"
             img = qrcode.make(url)
 
             # 5. Ensure the directory exists and save the image
