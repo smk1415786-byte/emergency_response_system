@@ -1,7 +1,6 @@
 from flask import Flask, request, jsonify, render_template, redirect
 import qrcode
-import io
-import base64
+import os
 from supabase import create_client, Client
 
 app = Flask(__name__)
@@ -39,18 +38,19 @@ def home():
                 
             vehicle_id = inserted_data[0].get("id")
 
-            # 4. Generate the QR Code URL dynamically based on the current host (Render or Local)
-            url = f"{request.host_url}v/{vehicle_id}"
+            # 4. Generate the QR Code URL using your active Render domain
+            url = f"https://emergency-response-system-5-p5rb.onrender.com/v/{vehicle_id}"
             img = qrcode.make(url)
 
-            # 5. Generate QR code in-memory (Base64) to work on Render's cloud storage
-            buffered = io.BytesIO()
-            img.save(buffered, format="PNG")
-            qr_base64 = base64.b64encode(buffered.getvalue()).decode("utf-8")
-            qr_data_url = f"data:image/png;base64,{qr_base64}"
+            # 5. Ensure the directory exists and save the image
+            if not os.path.exists("static/qrcodes"):
+                os.makedirs("static/qrcodes")
 
-            # 6. Render the success page with the in-memory QR code
-            return render_template("success.html", qr=qr_data_url)
+            path = f"static/qrcodes/{vehicle_id}.png"
+            img.save(path)
+
+            # 6. Render the success page with the generated QR code
+            return render_template("success.html", qr=path)
 
         except Exception as e:
             return f"An error occurred: {str(e)}", 500
