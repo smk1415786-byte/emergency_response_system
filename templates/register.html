@@ -1,44 +1,130 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Register</title>
+    <meta charset="UTF-8">
+    <title>Register Vehicle</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: Arial; background: #f1f5f9; text-align: center; }
-        form {
-            background: white;
-            padding: 25px;
-            margin: 50px auto;
-            width: 320px;
+        :root {
+            --bg: #e9eff2;
+            --card: #ffffff;
+            --ink: #14232f;
+            --muted: #5d7079;
+            --line: #cfdadf;
+            --brand: #0f5c63;
+            --brand-dark: #0a444a;
+            --plate: #f5c518;
+            --focus: #1a8f9a;
+        }
+
+        body {
+            font-family: 'Barlow Condensed', sans-serif;
+            background-color: var(--bg);
+            color: var(--ink);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: var(--card);
+            padding: 30px;
             border-radius: 12px;
-            box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
-        }
-        input {
-            width: 95%;
-            padding: 10px;
-            margin: 8px 0;
-        }
-        button {
-            background: #2563eb;
-            color: white;
-            padding: 10px;
-            border: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
             width: 100%;
+            max-width: 500px;
+            border: 1px solid var(--line);
+        }
+
+        h2 {
+            margin-top: 0;
+            color: var(--brand);
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: var(--muted);
+        }
+
+        input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--line);
             border-radius: 6px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--focus);
+            box-shadow: 0 0 0 3px rgba(26, 143, 154, 0.15);
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            background-color: var(--brand);
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.2s;
+            font-family: inherit;
+        }
+
+        button[type="submit"]:hover {
+            background-color: var(--brand-dark);
         }
     </style>
 </head>
 <body>
 
-<form method="POST">
-    <h3>🚗 Register Vehicle</h3>
+    <div class="container">
+        <h2>Register Vehicle</h2>
+        <form action="/register_vehicle" method="POST">
+            <div class="form-group">
+                <label for="vehicle_number">Vehicle Number Plate</label>
+                <input type="text" id="vehicle_number" name="vehicle_number" placeholder="e.g., MH12AB1234" required>
+            </div>
 
-    <input type="text" name="name" placeholder="Owner Name" required>
-    <input type="text" name="phone" placeholder="Phone Number" required>
-    <input type="text" name="family" placeholder="Family Number" required>
-    <input type="text" name="vehicle" placeholder="Vehicle Number" required>
+            <div class="form-group">
+                <label for="owner_name">Owner Name</label>
+                <input type="text" id="owner_name" name="owner_name" placeholder="Enter owner's full name" required>
+            </div>
 
-    <button type="submit">Register</button>
-</form>
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="Enter contact number" required>
+            </div>
+
+            <div class="form-group">
+                <label for="emergency_contact">Emergency Contact</label>
+                <input type="tel" id="emergency_contact" name="emergency_contact" placeholder="Emergency contact number" required>
+            </div>
+
+            <button type="submit">Generate QR code</button>
+        </form>
+    </div>
 
 </body>
 </html>
