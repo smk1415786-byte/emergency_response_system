@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>QR Generated</title>
+    <title>Registration Success</title>
+    <style>
+        body { font-family: Arial; background: #f1f5f9; text-align: center; padding: 40px; }
+        .card { background: white; padding: 30px; margin: auto; max-width: 400px; border-radius: 12px; box-shadow: 0px 0px 15px rgba(0,0,0,0.1); }
+        img { width: 200px; height: 200px; margin-top: 15px; }
+    </style>
 </head>
-
-<body style="text-align:center;">
-
-<h2>✅ QR Code Generated</h2>
-
-<img src="/{{qr}}" width="250">
-
-<br><br>
-
-<a href="/">Generate Another</a>
-
+<body>
+    <div class="card">
+        <h3>🎉 Vehicle Registered Successfully!</h3>
+        <p>Scan this QR code in case of emergency:</p>
+        <!-- Notice it uses {{ qr }} to display the base64 string -->
+        <img src="{{ qr }}" alt="Emergency QR Code">
+    </div>
 </body>
 </html>
