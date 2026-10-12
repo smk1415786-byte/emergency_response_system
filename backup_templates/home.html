@@ -1,28 +1,225 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+    <meta charset="UTF-8">
     <title>Register Vehicle</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        body { text-align:center; font-family:Arial; padding:20px; }
-        input { width:90%; padding:12px; margin:10px; }
-        button { padding:12px; background:green; color:white; border:none; }
+         :root {
+            --bg: #e9eff2;
+            --card: #ffffff;
+            --ink: #14282f;
+            --muted: #5d7079;
+            --line: #cfdadf;
+            --brand: #0f5c63;
+            --brand-dark: #0a444a;
+            --plate: #f5c518;
+            --focus: #1a8f9a;
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: var(--bg);
+            color: var(--ink);
+            font-family: 'Inter', Arial, sans-serif;
+        }
+        
+        .card {
+            width: 100%;
+            max-width: 440px;
+            background: var(--card);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 12px 40px rgba(15, 60, 70, 0.14);
+        }
+        
+        .head {
+            background: var(--brand);
+            color: #fff;
+            padding: 28px 28px 24px;
+        }
+        
+        .head h1 {
+            margin: 0 0 6px;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .head p {
+            margin: 0;
+            font-size: 0.92rem;
+            line-height: 1.5;
+            color: #cfe6e8;
+        }
+        
+        form {
+            padding: 26px 28px 30px;
+        }
+        
+        .field {
+            margin-bottom: 18px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.88rem;
+            font-weight: 500;
+        }
+        
+        .hint {
+            display: block;
+            margin-top: 5px;
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+        
+        input {
+            width: 100%;
+            padding: 13px 14px;
+            font: inherit;
+            color: var(--ink);
+            background: #f8fbfc;
+            border: 1.5px solid var(--line);
+            border-radius: 10px;
+            transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+        }
+        
+        input::placeholder {
+            color: #9aaab1;
+        }
+        
+        input:focus {
+            outline: none;
+            background: #fff;
+            border-color: var(--focus);
+            box-shadow: 0 0 0 4px rgba(26, 143, 154, 0.18);
+        }
+        /* The memorable part: vehicle number styled like a number plate */
+        
+        input.plate {
+            padding: 14px;
+            text-align: center;
+            font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+            font-size: 1.9rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #1b1b1b;
+            background: var(--plate);
+            border: 3px solid #1b1b1b;
+            border-radius: 10px;
+        }
+        
+        input.plate::placeholder {
+            color: rgba(27, 27, 27, 0.4);
+        }
+        
+        input.plate:focus {
+            background: #ffd23a;
+            border-color: #1b1b1b;
+            box-shadow: 0 0 0 4px rgba(245, 197, 24, 0.4);
+        }
+        
+        .group-title {
+            margin: 26px 0 14px;
+            padding-top: 20px;
+            border-top: 1px solid var(--line);
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+        
+        button {
+            width: 100%;
+            margin-top: 8px;
+            padding: 15px;
+            font: inherit;
+            font-weight: 600;
+            font-size: 1rem;
+            color: #fff;
+            background: var(--brand);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.15s, transform 0.1s;
+        }
+        
+        button:hover {
+            background: var(--brand-dark);
+        }
+        
+        button:active {
+            transform: scale(0.98);
+        }
+        
+        button:focus-visible {
+            outline: 3px solid var(--focus);
+            outline-offset: 3px;
+        }
+        
+        @media (max-width: 400px) {
+            .head,
+            form {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+            input.plate {
+                font-size: 1.6rem;
+            }
+        }
     </style>
 </head>
 
 <body>
 
-<h2>🚗 Register Vehicle</h2>
+    <main class="card">
+        <header class="head">
+            <h1>Register your vehicle</h1>
+            <p>Add your details to get a QR code for your vehicle. If someone needs to reach you, they can scan it.</p>
+        </header>
 
-<form method="POST">
-    <input name="vehicle" placeholder="Vehicle Number" required><br>
-    <input name="name" placeholder="Owner Name" required><br>
-    <input name="phone" placeholder="Owner Phone" required><br>
-    <input name="family" placeholder="Family Phone" required><br>
+        <!-- action connects to your Flask backend -->
+        <form action="/register_vehicle" method="POST">
+            <div class="field">
+                <label for="vehicle">Vehicle number</label>
+                <input class="plate" id="vehicle" name="vehicle" placeholder="MH 12 AB 1234" autocapitalize="characters" autocomplete="off" required>
+            </div>
 
-    <button type="submit">Generate QR</button>
-</form>
+            <div class="group-title">Contact details</div>
+
+            <div class="field">
+                <label for="name">Owner name</label>
+                <input id="name" name="name" placeholder="Full name" autocomplete="name" required>
+            </div>
+
+            <div class="field">
+                <label for="phone">Owner phone</label>
+                <input id="phone" name="phone" type="tel" placeholder="98765 43210" autocomplete="tel" required>
+            </div>
+
+            <div class="field">
+                <label for="family">Family phone</label>
+                <input id="family" name="family" type="tel" placeholder="98765 43210" required>
+                <span class="hint">Used as a backup if the owner can't be reached.</span>
+            </div>
+
+            <button type="submit">Generate QR code</button>
+        </form>
+    </main>
 
 </body>
+
 </html>
