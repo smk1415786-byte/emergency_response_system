@@ -1,34 +1,61 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Scan N Help</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
-        body { font-family:Arial; background:#111; color:white; text-align:center; }
-        .card { background:#222; margin:15px; padding:20px; border-radius:10px; }
-        .btn { display:block; padding:15px; margin:10px; border-radius:8px; text-decoration:none; color:white; }
-        .call { background:green; }
-        .alert { background:red; }
+        body {
+            font-family: Arial;
+            background: #111;
+            color: white;
+            text-align: center;
+        }
+        
+        .card {
+            background: #222;
+            margin: 15px;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        .btn {
+            display: block;
+            padding: 15px;
+            margin: 10px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: white;
+        }
+        
+        .call {
+            background: green;
+        }
+        
+        .alert {
+            background: red;
+        }
     </style>
 </head>
 
 <body>
 
-<h2>🚗 {{data.vehicle}}</h2>
-<p>{{data.name}}</p>
+    <h2>🚗 {{data.vehicle}}</h2>
+    <p>{{data.name}}</p>
 
-<div class="card">
-    <h3>🚨 Accident</h3>
-    <a href="/call/family/{{data.id}}" class="btn call">Call Family</a>
-    <a href="/whatsapp/family/{{data.id}}" class="btn alert">Alert + WhatsApp</a>
-</div>
+    <div class="card">
+        <h3>🚨 Accident</h3>
+        <a href="/call/family/{{data.id}}" class="btn call">Call Family</a>
+        <a href="/whatsapp/family/{{data.id}}" class="btn alert">Alert + WhatsApp</a>
+    </div>
 
-<div class="card">
-    <h3>🅿️ Misparking</h3>
-    <a href="/call/owner/{{data.id}}" class="btn call">Call Owner</a>
-    <a href="/whatsapp/owner/{{data.id}}" class="btn alert">Alert + WhatsApp</a>
-</div>
+    <div class="card">
+        <h3>🅿️ Misparking</h3>
+        <a href="/call/owner/{{data.id}}" class="btn call">Call Owner</a>
+        <a href="/whatsapp/owner/{{data.id}}" class="btn alert">Alert + WhatsApp</a>
+    </div>
 
 </body>
+
 </html>
