@@ -60,28 +60,38 @@ def home():
 
 
 # ==========================================
-# VIEW VEHICLE (AFTER SCAN)
+# VIEW VEHICLE (AFTER SCAN) - DEBUG MODE
 # ==========================================
 @app.route("/v/<id>")
 def view(id):
-    # Fetch vehicle from Supabase by ID
-    result = supabase.table("vehicles").select("*").eq("id", id).execute()
-    
-    if not result.data:
-        return "❌ Vehicle not found", 404
+    try:
+        # Fetch vehicle from Supabase by ID
+        result = supabase.table("vehicles").select("*").eq("id", id).execute()
+        
+        if not result.data:
+            return f"""
+            <h3>❌ Vehicle not found</h3>
+            <p><b>Debug Info:</b></p>
+            <p>Looked for ID: <code>{id}</code></p>
+            <p>Supabase Response: <code>{result}</code></p>
+            <p>Please check your Supabase 'vehicles' table to see if this ID exists.</p>
+            """, 404
 
-    data = result.data[0]
-    
-    # Map the Supabase columns back to what your vehicle.html template expects
-    template_data = {
-        "id": id,
-        "vehicle": data.get("vehicle_number"),
-        "name": data.get("owner_name"),
-        "phone": data.get("owner_phone"),
-        "family": data.get("family_phone")
-    }
+        data = result.data[0]
+        
+        # Map the Supabase columns back to what your vehicle.html template expects
+        template_data = {
+            "id": id,
+            "vehicle": data.get("vehicle_number"),
+            "name": data.get("owner_name"),
+            "phone": data.get("owner_phone"),
+            "family": data.get("family_phone")
+        }
 
-    return render_template("vehicle.html", data=template_data)
+        return render_template("vehicle.html", data=template_data)
+    
+    except Exception as e:
+        return f"<h3>❌ Database Error</h3><p>{str(e)}</p>", 500
 
 
 # ==========================================
